@@ -18,11 +18,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     setMounted(true)
   }, [])
 useEffect(() => {
-  setMounted(true)
-}, [])
-
-useEffect(() => {
-  if (Notification.permission !== "granted") {
+  if (
+    typeof window !== "undefined" &&
+    "Notification" in window &&
+    Notification.permission !== "granted"
+  ) {
     Notification.requestPermission()
   }
 }, [])
