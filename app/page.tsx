@@ -19,9 +19,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("")
   const [remember, setRemember] = useState(true)
   const [showPw, setShowPw] = useState(false)
-useEffect(() => {
-  supabase.auth.signOut()
-}, [])
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!email || !password) {
