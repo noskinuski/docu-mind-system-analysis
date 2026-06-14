@@ -250,7 +250,13 @@ function DeadlineRow({
         <p className="truncate text-sm font-medium">{title}</p>
         <p className="text-xs text-muted-foreground">{formatDate(date)}</p>
       </div>
-      {status === "today" && <Badge variant="destructive">Hari ini</Badge>}
+      {status === "today" && (
+  <Badge variant="destructive">Hari ini</Badge>
+)}
+
+{status === "overdue" && (
+  <Badge variant="destructive">Terlambat</Badge>
+)}
     </div>
   )
 }
