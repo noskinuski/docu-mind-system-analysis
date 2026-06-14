@@ -37,24 +37,16 @@ export default function DashboardPage() {
   )
   const recentDocs = useMemo(() => docs.slice(0, 5), [docs])
   useEffect(() => {
-  alert("Dashboard kebuka")
-
-  if ("Notification" in window) {
-    alert("Notification didukung")
-
-    Notification.requestPermission().then((permission) => {
-      alert("Permission: " + permission)
-
-      if (permission === "granted") {
-        new Notification("TES NOTIF", {
-          body: "Notif berhasil 🎉",
-        })
-      }
+  if (
+    deadlineToday.length > 0 &&
+    "Notification" in window &&
+    Notification.permission === "granted"
+  ) {
+    new Notification("DocuMind Reminder", {
+      body: `Ada ${deadlineToday.length} deadline hari ini!`,
     })
-  } else {
-    alert("Browser tidak support Notification")
   }
-}, [])
+}, [deadlineToday])
 
 useEffect(() => {
   if (
