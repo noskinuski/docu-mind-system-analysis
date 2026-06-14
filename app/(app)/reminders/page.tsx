@@ -22,7 +22,6 @@ import { useAgendas, agendaStatus } from "@/hooks/use-documind"
 import type { Agenda, AgendaStatus } from "@/lib/types"
 import { formatDate } from "@/lib/utils-format"
 import { cn } from "@/lib/utils"
-import { useEffect } from "react"
 
 const STATUS_META: Record<
   AgendaStatus,
