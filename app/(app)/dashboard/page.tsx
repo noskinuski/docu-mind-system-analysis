@@ -37,12 +37,22 @@ export default function DashboardPage() {
   )
   const recentDocs = useMemo(() => docs.slice(0, 5), [docs])
   useEffect(() => {
-  console.log("USEEFFECT JALAN")
+  alert("Dashboard kebuka")
 
-  if (Notification.permission === "granted") {
-    new Notification("TES NOTIF", {
-      body: "Notif berhasil 🎉",
+  if ("Notification" in window) {
+    alert("Notification didukung")
+
+    Notification.requestPermission().then((permission) => {
+      alert("Permission: " + permission)
+
+      if (permission === "granted") {
+        new Notification("TES NOTIF", {
+          body: "Notif berhasil 🎉",
+        })
+      }
     })
+  } else {
+    alert("Browser tidak support Notification")
   }
 }, [])
 
