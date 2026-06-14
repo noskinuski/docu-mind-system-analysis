@@ -12,6 +12,7 @@ import {
   Trash2,
 } from "lucide-react"
 import { toast } from "sonner"
+import { Input } from "@/components/ui/input"
 import { PageHeader } from "@/components/page-header"
 import { AgendaDialog } from "@/components/agenda-dialog"
 import { Button } from "@/components/ui/button"
@@ -39,6 +40,7 @@ export default function RemindersPage() {
   const { agendas, toggleComplete, deleteAgenda } = useAgendas()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editing, setEditing] = useState<Agenda | null>(null)
+const [search, setSearch] = useState("")
 
   useEffect(() => {
     const todayItems = agendas.filter(
@@ -105,6 +107,12 @@ export default function RemindersPage() {
         })}
       </div>
 
+<Input
+  placeholder="Cari agenda..."
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  className="mb-4"
+/>
       <Tabs defaultValue="all">
         <TabsList className="mb-4 flex w-full flex-wrap">
           {tabs.map((t) => (
@@ -116,7 +124,9 @@ export default function RemindersPage() {
 
         <TabsContent value="all" className="space-y-3">
           <AgendaItems
-            items={agendas}
+           items={agendas.filter((a) =>
+  a.title.toLowerCase().includes(search.toLowerCase())
+)}
             onToggle={toggleComplete}
             onEdit={openEdit}
             onDelete={deleteAgenda}
