@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import {
   Plus,
   CalendarClock,
@@ -22,6 +22,7 @@ import { useAgendas, agendaStatus } from "@/hooks/use-documind"
 import type { Agenda, AgendaStatus } from "@/lib/types"
 import { formatDate } from "@/lib/utils-format"
 import { cn } from "@/lib/utils"
+import { useEffect } from "react"
 
 const STATUS_META: Record<
   AgendaStatus,
@@ -39,6 +40,18 @@ export default function RemindersPage() {
   const { agendas, toggleComplete, deleteAgenda } = useAgendas()
   const [dialogOpen, setDialogOpen] = useState(false)
   const [editing, setEditing] = useState<Agenda | null>(null)
+
+  useEffect(() => {
+    const todayItems = agendas.filter(
+      (a) => !a.completed && agendaStatus(a) === "today"
+    )
+
+    if (todayItems.length > 0) {
+      toast.warning(
+        `Ada ${todayItems.length} agenda yang jatuh tempo hari ini!`
+      )
+    }
+  }, [agendas])
 
   const grouped = useMemo(() => {
     const g: Record<AgendaStatus, Agenda[]> = {
