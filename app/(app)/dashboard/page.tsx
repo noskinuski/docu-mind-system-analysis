@@ -180,34 +180,45 @@ console.log("Notification:", Notification.permission)
                 </Link>
               ))
             )}
-          <CardContent className="space-y-3">
-  {overdue.map((a) => (
-    <DeadlineRow
-      key={a.id}
-      title={a.title}
-      date={a.date}
-      status="overdue"
-    />
-  ))}
+            </CardContent>
+            
+          </Card>
 
-  {deadlineToday.map((a) => (
-    <DeadlineRow
-      key={a.id}
-      title={a.title}
-      date={a.date}
-      status="today"
-    />
-  ))}
+<Card>
+  <CardHeader>
+    <CardTitle className="text-base">
+      Deadline Terdekat
+    </CardTitle>
+  </CardHeader>
 
-  {upcoming.map((a) => (
-    <DeadlineRow
-      key={a.id}
-      title={a.title}
-      date={a.date}
-      status={agendaStatus(a)}
-    />
-  ))}
-</CardContent>
+  <CardContent className="space-y-3">
+    {overdue.map((a) => (
+      <DeadlineRow
+        key={a.id}
+        title={a.title}
+        date={a.date}
+        status="overdue"
+      />
+    ))}
+
+    {deadlineToday.map((a) => (
+      <DeadlineRow
+        key={a.id}
+        title={a.title}
+        date={a.date}
+        status="today"
+      />
+    ))}
+
+    {upcoming.map((a) => (
+      <DeadlineRow
+        key={a.id}
+        title={a.title}
+        date={a.date}
+        status={agendaStatus(a)}
+      />
+    ))}
+  </CardContent>
         </Card>
       </div>
     </div>
@@ -229,13 +240,7 @@ function DeadlineRow({
     : status === "overdue"
     ? "bg-destructive/15 text-destructive"
     : "bg-accent text-accent-foreground"
-    {status === "today" && (
-  <Badge variant="destructive">Hari ini</Badge>
-)}
-
-{status === "overdue" && (
-  <Badge variant="destructive">Terlambat</Badge>
-)}
+  
   return (
     <div className="flex items-center gap-3">
       <span className={cn("flex size-9 items-center justify-center rounded-lg", variant)}>
