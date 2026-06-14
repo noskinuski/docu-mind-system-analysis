@@ -40,7 +40,9 @@ if (error) {
 }
 
 login(email)
-toast.success("Berhasil masuk. Selamat datang di DocuMind!")
+toast.success("Login berhasil!", {
+  description: "Mengalihkan ke dashboard..."
+})
 router.push("/dashboard")
   }
   
