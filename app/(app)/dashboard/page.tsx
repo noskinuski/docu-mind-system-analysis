@@ -31,6 +31,10 @@ export default function DashboardPage() {
     () => agendas.filter((a) => !a.completed && a.date === today),
     [agendas, today],
   )
+  const overdue = useMemo(
+  () => agendas.filter((a) => !a.completed && a.date < today),
+  [agendas, today]
+)
   const upcoming = useMemo(
     () => agendas.filter((a) => !a.completed && a.date > today).slice(0, 5),
     [agendas, today],
@@ -176,37 +180,34 @@ console.log("Notification:", Notification.permission)
                 </Link>
               ))
             )}
-          </CardContent>
-        </Card>
-
-        {/* Deadlines */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-base">Deadline Terdekat</CardTitle>
-          </CardHeader>
           <CardContent className="space-y-3">
-            {deadlineToday.length === 0 && upcoming.length === 0 ? (
-              <EmptyState
-                text="Tidak ada deadline. Tambahkan agenda di kalender."
-                href="/calendar"
-                cta="Buka kalender"
-              />
-            ) : (
-              <>
-                {deadlineToday.map((a) => (
-                  <DeadlineRow key={a.id} title={a.title} date={a.date} status="today" />
-                ))}
-                {upcoming.map((a) => (
-                  <DeadlineRow
-                    key={a.id}
-                    title={a.title}
-                    date={a.date}
-                    status={agendaStatus(a)}
-                  />
-                ))}
-              </>
-            )}
-          </CardContent>
+  {overdue.map((a) => (
+    <DeadlineRow
+      key={a.id}
+      title={a.title}
+      date={a.date}
+      status="overdue"
+    />
+  ))}
+
+  {deadlineToday.map((a) => (
+    <DeadlineRow
+      key={a.id}
+      title={a.title}
+      date={a.date}
+      status="today"
+    />
+  ))}
+
+  {upcoming.map((a) => (
+    <DeadlineRow
+      key={a.id}
+      title={a.title}
+      date={a.date}
+      status={agendaStatus(a)}
+    />
+  ))}
+</CardContent>
         </Card>
       </div>
     </div>
@@ -223,9 +224,18 @@ function DeadlineRow({
   status: string
 }) {
   const variant =
-    status === "today"
-      ? "bg-chart-5/15 text-chart-5"
-      : "bg-accent text-accent-foreground"
+  status === "today"
+    ? "bg-chart-5/15 text-chart-5"
+    : status === "overdue"
+    ? "bg-destructive/15 text-destructive"
+    : "bg-accent text-accent-foreground"
+    {status === "today" && (
+  <Badge variant="destructive">Hari ini</Badge>
+)}
+
+{status === "overdue" && (
+  <Badge variant="destructive">Terlambat</Badge>
+)}
   return (
     <div className="flex items-center gap-3">
       <span className={cn("flex size-9 items-center justify-center rounded-lg", variant)}>
