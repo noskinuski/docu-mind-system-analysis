@@ -97,6 +97,7 @@ useEffect(() => {
   ]
 
 console.log("Notification:", Notification.permission)
+
   return (
     <div className="mx-auto max-w-6xl">
       <PageHeader
