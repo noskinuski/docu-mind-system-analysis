@@ -39,7 +39,6 @@ if (error) {
   return
 }
 
-login(email)
 toast.success("Berhasil masuk!", {
   description: "Selamat datang di DocuMind 🎉",
   duration: 3000,
@@ -164,7 +163,7 @@ router.push("/dashboard")
 </Button>
 </form>
           <p className="text-center text-xs text-muted-foreground">
-            Aplikasi tugas mata kuliah Kearsipan Digital. Data disimpan lokal di
+            Document Center for Upload, Control and Unified Mindful Deadline. Data disimpan lokal di
             browser Anda.
           </p>
         </div>
