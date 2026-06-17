@@ -39,11 +39,14 @@ if (error) {
   return
 }
 
+login(email)
+
 toast.success("Berhasil masuk!", {
   description: "Selamat datang di DocuMind 🎉",
   duration: 3000,
 })
-router.push("/dashboard")
+
+window.location.href = "/dashboard"
   }
   
 
