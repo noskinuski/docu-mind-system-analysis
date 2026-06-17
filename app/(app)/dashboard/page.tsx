@@ -102,7 +102,9 @@ useEffect(() => {
     },
   ]
 
-console.log("Notification:", Notification.permission)
+if (typeof window !== "undefined" && "Notification" in window) {
+  console.log("Notification:", Notification.permission)
+}
 
   return (
     <div className="mx-auto max-w-6xl">
