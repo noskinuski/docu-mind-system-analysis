@@ -40,6 +40,10 @@ export default function DashboardPage() {
     [agendas, today],
   )
   const recentDocs = useMemo(() => docs.slice(0, 5), [docs])
+  const totalNotif =
+  overdue.length +
+  deadlineToday.length +
+  upcoming.length
   useEffect(() => {
   if (
     deadlineToday.length > 0 &&
@@ -147,21 +151,29 @@ if (typeof window !== "undefined" && "Notification" in window) {
         })}
       </div>
 
-{deadlineToday.length > 0 && (
-  <Card className="mt-6 border-red-300 bg-red-50">
+{totalNotif > 0 && (
+  <Card className="mt-6 border-orange-300 bg-orange-50">
     <CardHeader>
-      <CardTitle>🔔 Notifikasi Deadline</CardTitle>
+      <CardTitle>
+        🔔 Notifikasi ({totalNotif})
+      </CardTitle>
     </CardHeader>
-    <CardContent>
-      {deadlineToday.map((item) => (
-        <p key={item.id}>
-          {item.title} - jatuh tempo hari ini
-        </p>
+
+    <CardContent className="space-y-2">
+      {overdue.map((a) => (
+        <p key={a.id}>🚨 {a.title} - Terlambat</p>
+      ))}
+
+      {deadlineToday.map((a) => (
+        <p key={a.id}>📅 {a.title} - Hari ini</p>
+      ))}
+
+      {upcoming.map((a) => (
+        <p key={a.id}>⏳ {a.title} - Akan datang</p>
       ))}
     </CardContent>
   </Card>
 )}
-
 <div className="mt-6 grid gap-6 lg:grid-cols-3">
         {/* Recent documents */}
         <Card className="lg:col-span-2">
