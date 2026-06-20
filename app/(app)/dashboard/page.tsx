@@ -147,7 +147,22 @@ if (typeof window !== "undefined" && "Notification" in window) {
         })}
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+{deadlineToday.length > 0 && (
+  <Card className="mt-6 border-red-300 bg-red-50">
+    <CardHeader>
+      <CardTitle>🔔 Notifikasi Deadline</CardTitle>
+    </CardHeader>
+    <CardContent>
+      {deadlineToday.map((item) => (
+        <p key={item.id}>
+          {item.title} - jatuh tempo hari ini
+        </p>
+      ))}
+    </CardContent>
+  </Card>
+)}
+
+<div className="mt-6 grid gap-6 lg:grid-cols-3">
         {/* Recent documents */}
         <Card className="lg:col-span-2">
           <CardHeader className="flex flex-row items-center justify-between">
